@@ -14,7 +14,7 @@ public class Preview : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 100))
         {
-            if(hit.transform.CompareTag("Placeable") && !touch)
+            if(hit.transform.CompareTag("Placeable"))
             {
                 this.GetComponent<Renderer>().material = Valid;
                 valid = true;
@@ -31,11 +31,5 @@ public class Preview : MonoBehaviour
                 transform.position += direction * distance;
             }
         }
-    }
-    void OnTriggerEnter ()
-    {
-        touch = true;
-    }void OnTriggerExit () {
-        touch = false;
     }
 }

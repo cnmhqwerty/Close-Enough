@@ -8,7 +8,9 @@ using UnityEngine;
 public class MaterialController : MonoBehaviour
 {
     private GameObject curPreview;
-    
+    public List<GameObject> inScene;
+    private List<Transform> objects;
+
     public void OnMaterialClick(Item mat)
     {
         if (curPreview != null)
@@ -16,26 +18,26 @@ public class MaterialController : MonoBehaviour
             Destroy(curPreview);
         }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, 100))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100) && !GetComponent<GameplayController>().playing)
         {
             curPreview = Instantiate(mat.preview,hit.point, Quaternion.identity);
         }
     }
     void Update()
     {
-        if (curPreview != null)
+        if (curPreview != null && !GetComponent<GameplayController>().playing)
         {
             if (Input.GetMouseButtonDown(0) && curPreview.GetComponent<Preview>().valid)
             {
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100))
                 {
-                    Collider objectToPlace = Instantiate(curPreview.GetComponent<Preview>().real, curPreview.GetComponent<Preview>().hit.point,
-                        Quaternion.identity).GetComponent<Collider>();
+                    GameObject objectToPlace = Instantiate(curPreview.GetComponent<Preview>().real, curPreview.GetComponent<Preview>().hit.point, Quaternion.identity);
                     Debug.Log("placed");
                     
-                    if(Physics.ComputePenetration(objectToPlace, objectToPlace.transform.position, objectToPlace.transform.rotation, hit.collider, hit.transform.position, hit.transform.rotation, out var direction, out var distance))
+                    if(Physics.ComputePenetration(objectToPlace.GetComponent<Collider>(), objectToPlace.transform.position, objectToPlace.transform.rotation, hit.collider, hit.transform.position, hit.transform.rotation, out var direction, out var distance))
                     {
                         objectToPlace.transform.position += direction * distance;
+                        inScene.Add(objectToPlace);
                     }
                 }
             }
@@ -48,6 +50,10 @@ public class MaterialController : MonoBehaviour
                 }
             }
         }
+        else if (GetComponent<GameplayController>().playing)
+        {
+            Destroy(curPreview);
+        }
     }
 
     IEnumerator Coroutine(GameObject t)
@@ -55,5 +61,24 @@ public class MaterialController : MonoBehaviour
         t.GetComponent<Renderer>().material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         Destroy(t);
+    }
+    
+    public void Nail()
+    {
+        Destroy(curPreview);
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 100, 1<<3))
+            {
+                objects.Add(hit.transform);
+                if (objects.Count > 1)
+                {
+                    objects[0].parent = objects[1];
+                    objects.Clear();
+                }
+            }
+        }
     }
 }
