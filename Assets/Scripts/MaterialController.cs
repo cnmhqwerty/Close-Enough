@@ -31,7 +31,7 @@ public class MaterialController : MonoBehaviour
             {
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100))
                 {
-                    GameObject objectToPlace = Instantiate(curPreview.GetComponent<Preview>().real, curPreview.GetComponent<Preview>().hit.point, Quaternion.identity);
+                    GameObject objectToPlace = Instantiate(curPreview.GetComponent<Preview>().real, curPreview.GetComponent<Preview>().hit.point, curPreview.GetComponent<Transform>().rotation);
                     Debug.Log("placed");
                     
                     if(Physics.ComputePenetration(objectToPlace.GetComponent<Collider>(), objectToPlace.transform.position, objectToPlace.transform.rotation, hit.collider, hit.transform.position, hit.transform.rotation, out var direction, out var distance))
