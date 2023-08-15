@@ -538,7 +538,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &570594406
 GameObject:
@@ -843,13 +843,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.16773118, y: -0.19826685, z: 0.16636565, w: 0.95125127}
+  m_LocalPosition: {x: -17.93, y: -5.270378, z: 20.871433}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 963194228}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &904795821
 GameObject:
@@ -1198,7 +1198,7 @@ Transform:
   - {fileID: 652574477}
   - {fileID: 904795822}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -1281,7 +1281,8 @@ Transform:
   m_LocalPosition: {x: 17.93, y: 18, z: -15.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 705507995}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
@@ -1442,6 +1443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inScene: []
+  nail: {fileID: 0}
 --- !u!4 &1455290848
 Transform:
   m_ObjectHideFlags: 0
@@ -1455,7 +1457,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1455290849
 MonoBehaviour:
@@ -1647,6 +1649,7 @@ GameObject:
   - component: {fileID: 1613428218}
   - component: {fileID: 1613428217}
   - component: {fileID: 1613428216}
+  - component: {fileID: 1613428219}
   m_Layer: 5
   m_Name: Nails
   m_TagString: Untagged
@@ -1693,11 +1696,11 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1455290847}
           m_TargetAssemblyTypeName: MaterialController, Assembly-CSharp
-          m_MethodName: Nail
-          m_Mode: 1
+          m_MethodName: NailClick
+          m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_ObjectArgument: {fileID: 1613428219}
+            m_ObjectArgumentAssemblyTypeName: Item, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -1741,6 +1744,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613428213}
   m_CullTransparentMesh: 1
+--- !u!114 &1613428219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613428213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508aa58c52211db40a1c41b78e2364af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preview: {fileID: 7523235601311854647, guid: abf508b49ff2bda4e9ff25f19d2d1214, type: 3}
 --- !u!1 &1726717957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1914,7 +1930,7 @@ RectTransform:
   - {fileID: 1726717958}
   - {fileID: 224619460}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

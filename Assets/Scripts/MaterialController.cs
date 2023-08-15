@@ -9,13 +9,16 @@ public class MaterialController : MonoBehaviour
 {
     private GameObject curPreview;
     public List<GameObject> inScene;
-    private List<Transform> objects;
+    public GameObject nail;
 
     public void OnMaterialClick(Item mat)
     {
         if (curPreview != null)
         {
             Destroy(curPreview);
+        }if (nail != null)
+        {
+            Destroy(nail);
         }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, 100) && !GetComponent<GameplayController>().playing)
@@ -63,22 +66,16 @@ public class MaterialController : MonoBehaviour
         Destroy(t);
     }
     
-    public void Nail()
+    public void NailClick(Item mat)
     {
-        Destroy(curPreview);
-        
-        if (Input.GetMouseButtonDown(0))
+        if (curPreview != null)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 100, 1<<3))
-            {
-                objects.Add(hit.transform);
-                if (objects.Count > 1)
-                {
-                    objects[0].parent = objects[1];
-                    objects.Clear();
-                }
-            }
+            Destroy(curPreview);
+        }
+
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100) && !GetComponent<GameplayController>().playing)
+        {
+            nail = Instantiate(mat.preview, hit.point, Quaternion.identity);
         }
     }
 }

@@ -33,11 +33,14 @@ public class GameplayController : MonoBehaviour
 
     public void OnReset()
     {
-        foreach (var obj in GetComponent<MaterialController>().inScene)
+        if (!playing)
         {
-            Destroy(obj);
+            foreach (var obj in GetComponent<MaterialController>().inScene)
+            {
+                Destroy(obj);
+            }
+            GetComponent<MaterialController>().inScene.Clear();
         }
-        GetComponent<MaterialController>().inScene.Clear();
     }
 
 }
