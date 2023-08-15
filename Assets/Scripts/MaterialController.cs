@@ -63,6 +63,7 @@ public class MaterialController : MonoBehaviour
     {
         t.GetComponent<Renderer>().material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
+        inScene.Remove(t);
         Destroy(t);
     }
     
